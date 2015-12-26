@@ -73,30 +73,7 @@ namespace PrototypeLib.Providers
             }
 
             swPutMediaInfo.Stop();
-
             return count;
         }
-
-        /*private class MediaFileComparer : EqualityComparer<MediaFile>
-        {
-            private static MediaFileComparer _instance = new MediaFileComparer();
-
-            public static MediaFileComparer Instance { get { return _instance; } }
-
-            public override bool Equals(MediaFile x, MediaFile y)
-            {
-                if (x == null || y == null)
-                    return (x == y);
-
-                return (x.ContentHashValue == y.ContentHashValue) && String.Equals(x.Path, y.Path, StringComparison.OrdinalIgnoreCase);
-            }
-
-            public override int GetHashCode(MediaFile obj)
-            {
-                return (obj == null) ?
-                    0 : ((obj.ContentHashValue == null) ? 
-                        0 : obj.ContentHashValue.GetHashCode());
-            }
-        }*/
     }
 }
