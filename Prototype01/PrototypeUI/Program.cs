@@ -1,5 +1,8 @@
 ﻿using PrototypeLib.Providers;
 using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace PrototypeUI
@@ -12,6 +15,12 @@ namespace PrototypeUI
         [STAThread]
         static void Main()
         {
+            Guid guid = Marshal.GetTypeLibGuidForAssembly(Assembly.GetExecutingAssembly());
+            bool createdNew;
+            Mutex mutex = new Mutex(true, guid.ToString(), out createdNew);
+            if (!createdNew)
+                return;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             // TODO
