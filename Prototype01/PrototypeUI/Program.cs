@@ -15,16 +15,21 @@ namespace PrototypeUI
         [STAThread]
         static void Main()
         {
-            Guid guid = Marshal.GetTypeLibGuidForAssembly(Assembly.GetExecutingAssembly());
-            bool createdNew;
-            Mutex mutex = new Mutex(true, guid.ToString(), out createdNew);
-            if (!createdNew)
+            if (!CheckSingleAppInstance())
                 return;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             // TODO
             Application.Run(new MainForm(new IndexingProvider(new StorageProvider(2500), new HashValueProvider(1024))));
+        }
+
+        private static bool CheckSingleAppInstance()
+        {
+            Guid guid = Marshal.GetTypeLibGuidForAssembly(Assembly.GetExecutingAssembly());
+            bool createdNew;
+            Mutex mutex = new Mutex(true, guid.ToString(), out createdNew);
+            return createdNew;
         }
     }
 }
