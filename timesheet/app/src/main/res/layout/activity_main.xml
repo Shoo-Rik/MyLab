@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shoorik.timesheet.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/normalStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="10:00" />
+
+        <Button
+            android:id="@+id/startWorkDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:onClick="onClickStartButton" />
+
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="This is text view" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/line2"
+        app:layout_constraintTop_toBottomOf="@+id/line1"
+        android:layout_height="wrap_content"
+        android:layout_width="368dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/normalEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="19:00" />
+
+        <Button
+            android:id="@+id/endWorkDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/end"
+            android:onClick="onClickEndButton" />
+
+        <TextView
+            android:id="@+id/endText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="This is text view" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line3"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        android:layout_height="wrap_content"
+        android:layout_width="368dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/periodText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="This is text view" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
