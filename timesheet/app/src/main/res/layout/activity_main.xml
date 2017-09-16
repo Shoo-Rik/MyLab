@@ -7,7 +7,21 @@
     tools:context="com.shoorik.timesheet.MainActivity">
 
     <LinearLayout
+        android:id="@+id/line0"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="My timesheet" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/line1"
+        app:layout_constraintTop_toBottomOf="@+id/line0"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -74,8 +88,216 @@
             android:id="@+id/periodText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="This is text view" />
+            android:textSize="25dp"
+            android:text=" Week History "/>
     </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/weekTable"
+        app:layout_constraintTop_toBottomOf="@+id/line3"
+        android:layout_height="wrap_content"
+        android:layout_width="368dp">
+
+        <TableRow>
+            <TextView
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text=" Day "/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text=" Start "/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text=" Finish "/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text=" Duration "/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/MondayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Monday "/>
+            <TextView
+                android:id="@+id/MondayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/MondayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/MondayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/TuesdayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Tuesday "/>
+            <TextView
+                android:id="@+id/TuesdayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/TuesdayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/TuesdayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/WednesdayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Wednesday "/>
+            <TextView
+                android:id="@+id/WednesdayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/WednesdayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/WednesdayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/ThursdayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Thursday "/>
+            <TextView
+                android:id="@+id/ThursdayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/ThursdayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/ThursdayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/FridayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Friday "/>
+            <TextView
+                android:id="@+id/FridayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/FridayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/FridayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/SaturdayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Saturday "/>
+            <TextView
+                android:id="@+id/SaturdayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/SaturdayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/SaturdayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/SundayText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text=" Sunday "/>
+            <TextView
+                android:id="@+id/SundayStartText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/SundayEndText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+            <TextView
+                android:id="@+id/SundayDurationText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/WeekBalanceText"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="WeekBalance: "/>
+
+            <TextView
+                android:id="@+id/WeekBalance"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="@string/unknownTime"/>
+        </TableRow>
+
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
