@@ -3,4 +3,5 @@
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="unknownTime">--:--</string>
+    <string name="timeZone">Europe/Moscow</string>
 </resources>
