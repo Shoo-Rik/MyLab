@@ -17,9 +17,8 @@ public final class DateTimeHelper {
         _timeZone = timeZone;
     }
 
-    public String GetTimeZoneString() {
-
-        return _timeZone;
+    public TimeZone GetTimeZone() {
+        return TimeZone.getTimeZone(_timeZone);
     }
 
     public String GetLocalDateTimeString(String formatString, Date date) {

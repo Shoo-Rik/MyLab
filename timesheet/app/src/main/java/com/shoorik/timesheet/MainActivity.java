@@ -1,18 +1,25 @@
 package com.shoorik.timesheet;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         _info.put(WeekDayName.Sunday, new WeekDayInfo(WeekDayName.Sunday));
     }
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -41,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
         _settings = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone(_dateTimeHelper.GetTimeZoneString()));
+        Calendar calendar = Calendar.getInstance(_dateTimeHelper.GetTimeZone());
+        //calendar.setTimeZone(TimeZone.getTimeZone(_dateTimeHelper.GetTimeZoneString()));
 
         String currentWeekDay = _dateTimeHelper.GetCurrentWeekDay(calendar.getTime());
 
@@ -62,13 +70,17 @@ public class MainActivity extends AppCompatActivity {
         if (_info.get(currentWeekDay).EndTime != null) {
             endView.setText(_dateTimeHelper.GetCurrentTimeString(_info.get(currentWeekDay).EndTime));
         }
+
+        // Start alarm
+//        AlarmReceiver.schedule(getApplicationContext());
     }
 
-    @Override protected void onPause() {
+    @Override
+    protected void onPause() {
         super.onPause();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone(_dateTimeHelper.GetTimeZoneString()));
+        calendar.setTimeZone(_dateTimeHelper.GetTimeZone());
 
         _preferenceEditor = _settings.edit();
 
@@ -164,41 +176,84 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
+    private void timePicker(final Boolean isStartTime) {
+
+        // Get Current Time
+        final Calendar c = Calendar.getInstance(_dateTimeHelper.GetTimeZone());
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                Calendar calendar = Calendar.getInstance(_dateTimeHelper.GetTimeZone());
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
+                Date selectedDateTime = calendar.getTime();
+
+                String day = _dateTimeHelper.GetCurrentWeekDay(selectedDateTime);
+                String currentTimeString = _dateTimeHelper.GetCurrentTimeString(selectedDateTime);
+
+                WeekDayInfo infoItem = _info.get(day);
+                if (infoItem == null) {
+                    ShowMessage("Unknown day name '" + day + "'");
+                    return;
+                }
+
+                if (isStartTime) {
+                    // Set start date time
+                    infoItem.StartTime = selectedDateTime;
+                    // Set current start time
+                    ((TextView)findViewById(R.id.startText)).setText(currentTimeString);
+                }
+                else {
+                    // Set end date time
+                    infoItem.EndTime = selectedDateTime;
+                    // Set current end time
+                    ((TextView)findViewById(R.id.endText)).setText(currentTimeString);
+                }
+                // Set week day's start/end time
+                ((TextView)findViewById(GetWeekDayViewId(day, isStartTime))).setText(currentTimeString);
+                // Set week day's duration
+                UpdateDuration(day);
+
+            }
+        }, mHour, mMinute, true);
+
+        timePickerDialog.show();
+    }
+
     public void onClickStartButton(View view) {
 
-        Date now = new Date();
-        String day = _dateTimeHelper.GetCurrentWeekDay(now);
-        WeekDayInfo infoItem = _info.get(day);
-        if (infoItem == null) {
-            ShowMessage("Не удалось найти информацию о дне '" + day + "'");
-            return;
-        }
+        timePicker(true);
 
-        infoItem.StartTime = now;
+        /*// Идентификатор уведомления
+        final int NOTIFY_ID = 101;
 
-        String currentTimeString = _dateTimeHelper.GetCurrentTimeString(now);
-        ((TextView)findViewById(R.id.startText)).setText(currentTimeString);
-        ((TextView)findViewById(GetWeekDayViewId(_dateTimeHelper.GetCurrentWeekDay(), true))).setText(currentTimeString);
+        Context context = getApplicationContext();
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, NOTIFY_ID, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        UpdateDuration(day);
+        Notification.Builder builder = new Notification.Builder(context);
+        builder.setContentIntent(contentIntent).
+                setContentTitle(getString(R.string.app_name)).
+                setSmallIcon(R.mipmap.app_icon).
+                setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)).
+                setVibrate(new long[] {500, 500, 500, 500, 500, 500});
+
+        Notification notification = builder.build();
+
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(NOTIFY_ID, notification);*/
     }
 
     public void onClickEndButton(View view) {
 
-        Date now = new Date();
-        String day = _dateTimeHelper.GetCurrentWeekDay(now);
-        WeekDayInfo infoItem = _info.get(day);
-        if (infoItem == null) {
-            ShowMessage("Не удалось найти информацию о дне '" + day + "'");
-            return;
-        }
-        infoItem.EndTime = now;
-
-        String currentTimeString = _dateTimeHelper.GetCurrentTimeString(now);
-        ((TextView)findViewById(R.id.endText)).setText(currentTimeString);
-        ((TextView)findViewById(GetWeekDayViewId(_dateTimeHelper.GetCurrentWeekDay(), false))).setText(currentTimeString);
-
-        UpdateDuration(day);
+        timePicker(false);
     }
 
     private void UpdateDuration(String dayName) {
@@ -222,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             long hours = difference / 3600000;
-            long minutes = (difference - hours) / 60000;
+            long minutes = (difference - hours * 3600000) / 60000;
 
             durationView.setText(String.format("%1$02d:%2$02d", hours, minutes));
         }
