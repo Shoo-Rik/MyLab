@@ -1,5 +1,6 @@
 package com.shoorik.timesheet;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,15 +8,14 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
         _settings = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 
-        Calendar calendar = Calendar.getInstance(_dateTimeHelper.GetTimeZone());
-        //calendar.setTimeZone(TimeZone.getTimeZone(_dateTimeHelper.GetTimeZoneString()));
+        Calendar calendar = _dateTimeHelper.GetLocalCalendar();
 
         String currentWeekDay = _dateTimeHelper.GetCurrentWeekDay(calendar.getTime());
 
@@ -72,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Start alarm
+//        SetAlarm(30);
 //        AlarmReceiver.schedule(getApplicationContext());
     }
 
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         endView.setText(endTime > 0 ? _dateTimeHelper.GetCurrentTimeString(_info.get(weekDayName).EndTime) : unknownTime);
 
         UpdateDuration(weekDayName);
+        UpdateWeekBalance();
     }
 
     private void StoreDateTime(Date date) {
@@ -176,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    private void timePicker(final Boolean isStartTime) {
+    private void onChooseTime(final Boolean isStartTime) {
 
         // Get Current Time
-        final Calendar c = Calendar.getInstance(_dateTimeHelper.GetTimeZone());
+        final Calendar c = _dateTimeHelper.GetLocalCalendar();
         int mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMinute = c.get(Calendar.MINUTE);
 
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                Calendar calendar = Calendar.getInstance(_dateTimeHelper.GetTimeZone());
+                Calendar calendar = _dateTimeHelper.GetLocalCalendar();
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView)findViewById(GetWeekDayViewId(day, isStartTime))).setText(currentTimeString);
                 // Set week day's duration
                 UpdateDuration(day);
-
+                UpdateWeekBalance();
             }
         }, mHour, mMinute, true);
 
@@ -228,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
 
-        timePicker(true);
+        onChooseTime(true);
 
         /*// Идентификатор уведомления
         final int NOTIFY_ID = 101;
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickEndButton(View view) {
 
-        timePicker(false);
+        onChooseTime(false);
     }
 
     private void UpdateDuration(String dayName) {
@@ -283,6 +284,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void UpdateWeekBalance() {
+
+        TextView weekBalance = (TextView)findViewById(R.id.WeekBalance);
+        weekBalance.setText(GetWeekBalance( _info.values()));
+    }
+
+    private static String GetWeekBalance(Collection<WeekDayInfo> weekDayInfoCollection) {
+
+        long time = 0;
+        int dayCount = 0;
+
+        for (WeekDayInfo item : weekDayInfoCollection) {
+
+            if (item.StartTime == null || item.EndTime == null)
+                continue;
+
+            time = time + item.EndTime.getTime() - item.StartTime.getTime();
+            dayCount++;
+        }
+
+        final int workDayHours = 8;
+        final int workDayMinutes = 45;
+
+        long actualTotalMinutes = time / 60000;
+        long targetTotalMinutes = dayCount * (workDayHours * 60  + workDayMinutes);
+        long hours = (actualTotalMinutes - targetTotalMinutes) / 60;
+        long minutes = (actualTotalMinutes - targetTotalMinutes - hours * 60);
+
+        return String.format("%1$s%2$02d:%3$02d",
+                (minutes < 0) ? "-" : "",
+                (hours < 0) ? -hours : hours,
+                (minutes < 0) ? -minutes : minutes);
+    }
+
     private int GetDurationViewId(String weekDayName) {
 
         switch (weekDayName) {
@@ -307,6 +342,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void ShowMessage(String message) {
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        MessageHelper.ShowMessage(this, message);
     }
+
+    /*private void SetAlarm(int seconds) {
+
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        Calendar calendar = _dateTimeHelper.GetLocalCalendar();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        //// TODO: use calendar.add(Calendar.SECOND,MINUTE,HOUR, int);
+        calendar.add(Calendar.SECOND, seconds);
+
+        //ALWAYS recompute the calendar after using add, set, roll
+        Date date = calendar.getTime();
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime(), alarmIntent);
+    }*/
 }

@@ -1,6 +1,7 @@
 package com.shoorik.timesheet;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -46,5 +47,10 @@ public final class DateTimeHelper {
     public String GetCurrentWeekDay(Date date) {
 
         return GetLocalDateTimeString("EEEE", date);
+    }
+
+    public Calendar GetLocalCalendar() {
+
+        return Calendar.getInstance(GetTimeZone());
     }
 }
