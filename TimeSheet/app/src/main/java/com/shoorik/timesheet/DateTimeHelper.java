@@ -19,6 +19,7 @@ public final class DateTimeHelper {
     }
 
     public TimeZone GetTimeZone() {
+
         return TimeZone.getTimeZone(_timeZone);
     }
 
@@ -27,11 +28,6 @@ public final class DateTimeHelper {
         SimpleDateFormat format = new SimpleDateFormat(formatString, Locale.US);
         format.setTimeZone(TimeZone.getTimeZone(_timeZone));
         return format.format(date);
-    }
-
-    public String GetCurrentWeekDay() {
-
-        return GetCurrentWeekDay(new Date());
     }
 
     public String GetCurrentDateString(Date date) {
