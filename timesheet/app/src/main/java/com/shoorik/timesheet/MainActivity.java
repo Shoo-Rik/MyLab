@@ -164,17 +164,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TextView durationView = (TextView)findViewById(id);
+        Date startTime = _model.getStartTime(dayName);
+        Date endTime = _model.getEndTime(dayName);
 
-        long difference = _model.getEndTime(dayName).getTime() - _model.getStartTime(dayName).getTime();
-        if (difference < 0) {
+        if (startTime == null || endTime == null) {
             durationView.setText(R.string.unknownTime);
-            ShowMessage("Duration < 0");
         }
         else {
-            long hours = difference / 3600000;
-            long minutes = (difference % 3600000) / 60000;
+            long difference = endTime.getTime() - startTime.getTime();
+            if (difference < 0) {
+                durationView.setText(R.string.unknownTime);
+                ShowMessage("Duration < 0");
+            } else {
+                long hours = difference / 3600000;
+                long minutes = (difference % 3600000) / 60000;
 
-            durationView.setText(String.format("%1$02d:%2$02d", hours, minutes));
+                durationView.setText(String.format("%1$02d:%2$02d", hours, minutes));
+            }
         }
     }
 
