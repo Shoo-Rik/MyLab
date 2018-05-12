@@ -1,4 +1,4 @@
-package com.shoorik.timesheet;
+package com.shoorik.timesheet.misc;
 
 public final class WeekDayName {
 

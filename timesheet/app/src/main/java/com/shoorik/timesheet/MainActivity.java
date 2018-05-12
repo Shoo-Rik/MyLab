@@ -1,21 +1,26 @@
 package com.shoorik.timesheet;
 
 import android.app.TimePickerDialog;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.shoorik.timesheet.dbconnector.DataStorageFactory;
+import com.shoorik.timesheet.dbconnector.DataStorageType;
+import com.shoorik.timesheet.interfaces.IDataStorage;
+import com.shoorik.timesheet.misc.DateTimeHelper;
+import com.shoorik.timesheet.misc.MessageHelper;
+import com.shoorik.timesheet.misc.WeekDayName;
+
 import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SharedPreferences _settings;
     private DateTimeHelper _dateTimeHelper;
-    private ITimeSheetStorage _model;
+    private IDataStorage _model;
 
     public MainActivity() {
     }
@@ -27,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
-        SharedPreferences settings = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 
-        _model = new TimeSheetStorage(_dateTimeHelper, settings, getString(R.string.start), getString(R.string.end));
+        _model = DataStorageFactory.GetDataStorage(this, DataStorageType.SharedPreferences);
 
         Calendar calendar = _dateTimeHelper.GetLocalCalendar();
 
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        _model.storeDateTimes();
+        _model.save();
     }
 
     private void InitializeDateTime(String weekDay) {

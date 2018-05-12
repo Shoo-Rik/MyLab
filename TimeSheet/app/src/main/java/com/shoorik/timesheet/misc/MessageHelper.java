@@ -1,11 +1,7 @@
-package com.shoorik.timesheet;
+package com.shoorik.timesheet.misc;
 
 import android.content.Context;
 import android.widget.Toast;
-
-/**
- * Created by Admin on 12.10.2017.
- */
 
 public class MessageHelper {
 

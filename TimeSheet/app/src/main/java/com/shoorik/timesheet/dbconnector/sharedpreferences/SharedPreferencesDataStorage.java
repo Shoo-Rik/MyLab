@@ -1,17 +1,19 @@
-package com.shoorik.timesheet;
+package com.shoorik.timesheet.dbconnector.sharedpreferences;
 
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+
+import com.shoorik.timesheet.misc.DateTimeHelper;
+import com.shoorik.timesheet.interfaces.IDataStorage;
+import com.shoorik.timesheet.R;
+import com.shoorik.timesheet.misc.WeekDayName;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Admin on 19.10.2017.
- */
-
-public final class TimeSheetStorage implements ITimeSheetStorage {
+public final class SharedPreferencesDataStorage implements IDataStorage {
 
     private class WeekDayInfo {
 
@@ -31,12 +33,12 @@ public final class TimeSheetStorage implements ITimeSheetStorage {
     private String _startString;
     private String _endString;
 
-    public TimeSheetStorage(DateTimeHelper dateTimeHelper, SharedPreferences settings, String startString, String endString) {
+    public SharedPreferencesDataStorage(ContextWrapper context) {
 
-        _dateTimeHelper = dateTimeHelper;
-        _settings = settings;
-        _startString = startString;
-        _endString = endString;
+        _dateTimeHelper = new DateTimeHelper(context.getString(R.string.timeZone));
+        _settings = context.getSharedPreferences(context.getString(R.string.app_name), context.MODE_PRIVATE);
+        _startString = context.getString(R.string.start);
+        _endString = context.getString(R.string.end);
 
         _info = new HashMap<String, WeekDayInfo>();
         _info.put(WeekDayName.Monday, new WeekDayInfo(WeekDayName.Monday));
@@ -135,7 +137,7 @@ public final class TimeSheetStorage implements ITimeSheetStorage {
         }
     }
 
-    public void storeDateTimes() {
+    public void save() {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(_dateTimeHelper.GetTimeZone());

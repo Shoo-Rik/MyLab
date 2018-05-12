@@ -1,12 +1,8 @@
-package com.shoorik.timesheet;
+package com.shoorik.timesheet.interfaces;
 
 import java.util.Date;
 
-/**
- * Created by Admin on 23.10.2017.
- */
-
-public interface ITimeSheetStorage {
+public interface IDataStorage {
 
     Boolean areDayTimesSet(String weekDay);
 
@@ -18,5 +14,5 @@ public interface ITimeSheetStorage {
 
     long getWeekBalance();
 
-    void storeDateTimes();
+    void save();
 }
