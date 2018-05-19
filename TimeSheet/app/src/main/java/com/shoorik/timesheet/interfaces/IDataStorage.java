@@ -4,15 +4,9 @@ import java.util.Date;
 
 public interface IDataStorage {
 
-    Boolean areDayTimesSet(String weekDay);
+    Date getStartTime(Date startDate);
+    Date getEndTime(Date endDate);
 
-    Date getStartTime(String weekDay);
-    void setStartTime(String weekDay, Date date);
-
-    Date getEndTime(String weekDay);
-    void setEndTime(String weekDay, Date date);
-
-    long getWeekBalance();
-
-    void save();
+    void setStartTime(Date startDateTime);
+    void setEndTime(Date endDateTime);
 }

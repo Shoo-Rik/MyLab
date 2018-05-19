@@ -1,4 +1,4 @@
-package com.shoorik.timesheet.misc;
+package com.shoorik.timesheet.common;
 
 import android.content.Context;
 import android.widget.Toast;

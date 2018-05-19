@@ -59,37 +59,22 @@ public class SQLiteDataStorage implements IDataStorage {
     }
 
     @Override
-    public Boolean areDayTimesSet(String weekDay) {
+    public Date getStartTime(Date startDate) {
         return null;
     }
 
     @Override
-    public Date getStartTime(String weekDay) {
+    public Date getEndTime(Date endDate) {
         return null;
     }
 
     @Override
-    public void setStartTime(String weekDay, Date date) {
+    public void setStartTime(Date startDateTime) {
 
     }
 
     @Override
-    public Date getEndTime(String weekDay) {
-        return null;
-    }
-
-    @Override
-    public void setEndTime(String weekDay, Date date) {
-
-    }
-
-    @Override
-    public long getWeekBalance() {
-        return 0;
-    }
-
-    @Override
-    public void save() {
+    public void setEndTime(Date endDateTime) {
 
     }
 }

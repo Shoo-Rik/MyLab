@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.shoorik.timesheet.dbconnector.DataStorageFactory;
-import com.shoorik.timesheet.dbconnector.DataStorageType;
-import com.shoorik.timesheet.interfaces.IDataStorage;
-import com.shoorik.timesheet.misc.DateTimeHelper;
-import com.shoorik.timesheet.misc.MessageHelper;
-import com.shoorik.timesheet.misc.WeekDayName;
+import com.shoorik.timesheet.common.DateTimeHelper;
+import com.shoorik.timesheet.common.MessageHelper;
+import com.shoorik.timesheet.common.WeekDayName;
+import com.shoorik.timesheet.model.DataModel;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +18,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private DateTimeHelper _dateTimeHelper;
-    private IDataStorage _model;
+    private DataModel _model;
 
     public MainActivity() {
     }
@@ -32,53 +30,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
+        _model = new DataModel(this);
 
-        _model = DataStorageFactory.GetDataStorage(this, DataStorageType.SharedPreferences);
+        Calendar calendar = _dateTimeHelper.getFirstWeekDay();
 
-        Calendar calendar = _dateTimeHelper.GetLocalCalendar();
+        for (String weekDay : WeekDayName.Days) {
 
-        String currentWeekDay = _dateTimeHelper.GetCurrentWeekDay(calendar.getTime());
-
-        int previousWeekDays = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7; // hack
-
-        for (int i = 0; i <= previousWeekDays; ++i) {
-
-            InitializeDateTime(_dateTimeHelper.GetCurrentWeekDay(calendar.getTime()));
-            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            InitializeDateTime(calendar.getTime(), weekDay);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        Date startTime = _model.getStartTime(currentWeekDay);
-        TextView startView = (TextView) findViewById(R.id.startText);
-        startView.setText((startTime != null) ? _dateTimeHelper.GetCurrentTimeString(startTime) : getString(R.string.unknownTime));
+        calendar = _dateTimeHelper.getLocalCalendar();
 
-        Date endTime = _model.getEndTime(currentWeekDay);
+        Date startTime = _model.getStartTime(calendar.getTime());
+        TextView startView = (TextView) findViewById(R.id.startText);
+        startView.setText((startTime != null) ? _dateTimeHelper.getTimeString(startTime) : getString(R.string.unknownTime));
+
+        Date endTime = _model.getEndTime(calendar.getTime());
         TextView endView = (TextView) findViewById(R.id.endText);
-        endView.setText((endTime != null) ? _dateTimeHelper.GetCurrentTimeString(endTime) : getString(R.string.unknownTime));
+        endView.setText((endTime != null) ? _dateTimeHelper.getTimeString(endTime) : getString(R.string.unknownTime));
 
         UpdateWeekBalance();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
 
-        _model.save();
+        super.onPause();
+ //       _model.save();
     }
 
-    private void InitializeDateTime(String weekDay) {
+    private void InitializeDateTime(Date date, String weekDay) {
 
-        Date startTime = _model.getStartTime(weekDay);
-        Date endTime = _model.getEndTime(weekDay);
+        Date startTime = _model.getStartTime(date);
+        Date endTime = _model.getEndTime(date);
 
         String unknownTime = getString(R.string.unknownTime);
 
         TextView startView = (TextView) findViewById(GetWeekDayViewId(weekDay, true));
-        startView.setText(startTime != null ? _dateTimeHelper.GetCurrentTimeString(startTime) : unknownTime);
+        startView.setText(startTime != null ? _dateTimeHelper.getTimeString(startTime) : unknownTime);
 
         TextView endView = (TextView) findViewById(GetWeekDayViewId(weekDay, false));
-        endView.setText(endTime != null ? _dateTimeHelper.GetCurrentTimeString(endTime) : unknownTime);
+        endView.setText(endTime != null ? _dateTimeHelper.getTimeString(endTime) : unknownTime);
 
-        UpdateDuration(weekDay);
+        UpdateDuration(date, weekDay);
     }
 
     private static int GetWeekDayViewId(String weekDay, boolean isStart) {
@@ -105,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private void onChooseTime(final Boolean isStartTime) {
 
         // Get Current Time
-        final Calendar c = _dateTimeHelper.GetLocalCalendar();
+        final Calendar c = _dateTimeHelper.getLocalCalendar();
         int mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMinute = c.get(Calendar.MINUTE);
 
@@ -114,31 +109,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                Calendar calendar = _dateTimeHelper.GetLocalCalendar();
+                Calendar calendar = _dateTimeHelper.getLocalCalendar();
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
                 Date selectedDateTime = calendar.getTime();
 
-                String weekDay = _dateTimeHelper.GetCurrentWeekDay(selectedDateTime);
-                String currentTimeString = _dateTimeHelper.GetCurrentTimeString(selectedDateTime);
+                String weekDay = _dateTimeHelper.getWeekDay(selectedDateTime);
+                String currentTimeString = _dateTimeHelper.getTimeString(selectedDateTime);
 
                 if (isStartTime) {
                     // Set start date time
-                    _model.setStartTime(weekDay, selectedDateTime);
+                    _model.setStartTime(selectedDateTime);
                     // Set current start time
                     ((TextView)findViewById(R.id.startText)).setText(currentTimeString);
                 }
                 else {
                     // Set end date time
-                    _model.setEndTime(weekDay, selectedDateTime);
+                    _model.setEndTime(selectedDateTime);
                     // Set current end time
                     ((TextView)findViewById(R.id.endText)).setText(currentTimeString);
                 }
                 // Set week day's start/end time
                 ((TextView)findViewById(GetWeekDayViewId(weekDay, isStartTime))).setText(currentTimeString);
                 // Set week day's duration
-                UpdateDuration(weekDay);
+                UpdateDuration(selectedDateTime, weekDay);
                 UpdateWeekBalance();
             }
         }, mHour, mMinute, true);
@@ -156,9 +151,12 @@ public class MainActivity extends AppCompatActivity {
         onChooseTime(false);
     }
 
-    private void UpdateDuration(String dayName) {
+    private void UpdateDuration(Date date, String dayName) {
 
-        if (!_model.areDayTimesSet(dayName))
+        Date startTime = _model.getStartTime(date);
+        Date endTime = _model.getEndTime(date);
+
+        if ((startTime == null) || (endTime == null))
             return;
 
         int id = GetDurationViewId(dayName);
@@ -167,24 +165,20 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        TextView durationView = (TextView)findViewById(id);
-        Date startTime = _model.getStartTime(dayName);
-        Date endTime = _model.getEndTime(dayName);
+        TextView durationView = (TextView) findViewById(id);
 
-        if (startTime == null || endTime == null) {
+        long difference = endTime.getTime() - startTime.getTime();
+        if (difference < 0) {
+
             durationView.setText(R.string.unknownTime);
-        }
-        else {
-            long difference = endTime.getTime() - startTime.getTime();
-            if (difference < 0) {
-                durationView.setText(R.string.unknownTime);
-                ShowMessage("Duration < 0");
-            } else {
-                long hours = difference / 3600000;
-                long minutes = (difference % 3600000) / 60000;
+            ShowMessage("Duration < 0");
 
-                durationView.setText(String.format("%1$02d:%2$02d", hours, minutes));
-            }
+        } else {
+
+            long hours = difference / 3600000;
+            long minutes = (difference % 3600000) / 60000;
+
+            durationView.setText(String.format("%1$02d:%2$02d", hours, minutes));
         }
     }
 
@@ -196,14 +190,14 @@ public class MainActivity extends AppCompatActivity {
 
     private String GetWeekBalance() {
 
-        long time = _model.getWeekBalance();
+        long time = _model.getWeekBalance(_dateTimeHelper);
         long hours = time / 60;
         long minutes = time % 60;
 
         return String.format("%1$s%2$02d:%3$02d",
-                (minutes < 0) ? "-" : "",
-                (hours < 0) ? -hours : hours,
-                (minutes < 0) ? -minutes : minutes);
+                (time < 0) ? "-" : "",
+                (time < 0) ? -hours : hours,
+                (time < 0) ? -minutes : minutes);
     }
 
     private int GetDurationViewId(String weekDayName) {

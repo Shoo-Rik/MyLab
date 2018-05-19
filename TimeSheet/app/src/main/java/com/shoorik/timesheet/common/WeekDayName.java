@@ -1,4 +1,4 @@
-package com.shoorik.timesheet.misc;
+package com.shoorik.timesheet.common;
 
 public final class WeekDayName {
 
@@ -9,4 +9,14 @@ public final class WeekDayName {
     public static final String Friday = "Friday";
     public static final String Saturday = "Saturday";
     public static final String Sunday = "Sunday";
+
+    public static final String[] Days = new String[] {
+            Monday,
+            Tuesday,
+            Wednesday,
+            Thursday,
+            Friday,
+            Saturday,
+            Sunday
+    };
 }
