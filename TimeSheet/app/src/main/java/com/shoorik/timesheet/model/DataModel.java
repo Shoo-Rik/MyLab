@@ -1,11 +1,7 @@
 package com.shoorik.timesheet.model;
 
-import android.content.ContextWrapper;
-
 import com.shoorik.timesheet.common.DateTimeHelper;
 import com.shoorik.timesheet.common.WeekDayName;
-import com.shoorik.timesheet.dbconnector.DataStorageFactory;
-import com.shoorik.timesheet.dbconnector.DataStorageType;
 import com.shoorik.timesheet.interfaces.IDataStorage;
 
 import java.util.Calendar;
@@ -15,10 +11,9 @@ public class DataModel {
 
     IDataStorage _dataStorage;
 
-    public DataModel(ContextWrapper context) {
+    public DataModel(IDataStorage dataStorage) {
 
-        // [TODO] Remove hardcoded data storage type SharedPreferences
-        _dataStorage = DataStorageFactory.GetDataStorage(context, DataStorageType.SharedPreferences);
+        _dataStorage = dataStorage;
     }
 
     public Date getStartTime(Date startDate) {
@@ -53,13 +48,12 @@ public class DataModel {
             Date startTime = getStartTime(calendar.getTime());
             Date endTime = getEndTime(calendar.getTime());
 
-            if ((startTime == null) || (endTime == null))
-                continue;
+            if ((startTime != null) && (endTime != null)) {
 
-            time = time + endTime.getTime() - startTime.getTime();
-
+                time = time + endTime.getTime() - startTime.getTime();
+                dayCount++;
+            }
             calendar.add(Calendar.DAY_OF_YEAR, 1);
-            dayCount++;
         }
 
         final int workDayHours = 8;

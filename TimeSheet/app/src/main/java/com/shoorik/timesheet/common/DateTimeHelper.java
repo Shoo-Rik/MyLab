@@ -56,4 +56,12 @@ public final class DateTimeHelper {
         int previousWeekDays = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
         calendar.add(Calendar.DAY_OF_YEAR, -previousWeekDays);
         return calendar;
-    }}
+    }
+
+    public Calendar getLastWeekDay() {
+
+        Calendar calendar = getFirstWeekDay();
+        calendar.add(Calendar.DAY_OF_YEAR, 6);
+        return calendar;
+    }
+}

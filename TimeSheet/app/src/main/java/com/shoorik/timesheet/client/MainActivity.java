@@ -1,15 +1,19 @@
-package com.shoorik.timesheet;
+package com.shoorik.timesheet.client;
 
 import android.app.TimePickerDialog;
+import android.content.ContextWrapper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.shoorik.timesheet.R;
 import com.shoorik.timesheet.common.DateTimeHelper;
 import com.shoorik.timesheet.common.MessageHelper;
 import com.shoorik.timesheet.common.WeekDayName;
+import com.shoorik.timesheet.dbconnector.DataStorageFactory;
+import com.shoorik.timesheet.dbconnector.DataStorageType;
 import com.shoorik.timesheet.model.DataModel;
 
 import java.util.Calendar;
@@ -30,25 +34,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
-        _model = new DataModel(this);
+        // [TODO] Remove hardcoded data storage type SharedPreferences
+        _model = new DataModel(DataStorageFactory.GetDataStorage(this, DataStorageType.SharedPreferences)); // DataStorageType.SQLite));
 
         Calendar calendar = _dateTimeHelper.getFirstWeekDay();
 
-        for (String weekDay : WeekDayName.Days) {
-
-            InitializeDateTime(calendar.getTime(), weekDay);
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-        }
+        InitializeSpecificWeek(calendar);
 
         calendar = _dateTimeHelper.getLocalCalendar();
 
+        // Initialize Start Time
         Date startTime = _model.getStartTime(calendar.getTime());
         TextView startView = (TextView) findViewById(R.id.startText);
         startView.setText((startTime != null) ? _dateTimeHelper.getTimeString(startTime) : getString(R.string.unknownTime));
 
+        // Initialize End Time
         Date endTime = _model.getEndTime(calendar.getTime());
         TextView endView = (TextView) findViewById(R.id.endText);
         endView.setText((endTime != null) ? _dateTimeHelper.getTimeString(endTime) : getString(R.string.unknownTime));
+
+        // Initialize header
+        TextView weekHeaderView = (TextView) findViewById(R.id.periodText);
+        String weekHeaderText = String.format("From %1$s To %2$s",
+                _dateTimeHelper.getDateString(_dateTimeHelper.getFirstWeekDay().getTime()),
+                _dateTimeHelper.getDateString(_dateTimeHelper.getLastWeekDay().getTime()));
+        weekHeaderView.setText(weekHeaderText);
 
         UpdateWeekBalance();
     }
@@ -60,7 +70,16 @@ public class MainActivity extends AppCompatActivity {
  //       _model.save();
     }
 
-    private void InitializeDateTime(Date date, String weekDay) {
+    private void InitializeSpecificWeek(Calendar targetFirstDayOfWeek) {
+
+        for (String weekDay : WeekDayName.Days) {
+
+            InitializeSpecificWeekDay(targetFirstDayOfWeek.getTime(), weekDay);
+            targetFirstDayOfWeek.add(Calendar.DAY_OF_YEAR, 1);
+        }
+    }
+
+    private void InitializeSpecificWeekDay(Date date, String weekDay) {
 
         Date startTime = _model.getStartTime(date);
         Date endTime = _model.getEndTime(date);
@@ -143,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickStartButton(View view) {
 
+        int name = view.getId();
         onChooseTime(true);
     }
 

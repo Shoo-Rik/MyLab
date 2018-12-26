@@ -39,13 +39,13 @@ public final class SharedPreferencesDataStorage implements IDataStorage {
     @Override
     public Date getEndTime(Date endDate) {
 
-        return getDateTime(endDate, true);
+        return getDateTime(endDate, false);
     }
 
     @Override
     public void setEndTime(Date endDateTime) {
 
-        setDateTime(endDateTime, true);
+        setDateTime(endDateTime, false);
     }
 
     private Date getDateTime(Date date, boolean isStartTime) {
