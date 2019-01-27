@@ -36,12 +36,12 @@ public class DataModel {
         _dataStorage.setEndTime(endDateTime);
     }
 
-    public long getWeekBalance(DateTimeHelper dateTimeHelper) {
+    public long getWeekBalance(DateTimeHelper dateTimeHelper, int weekNumberAgo) {
 
         int dayCount = 0;
         long time = 0;
 
-        Calendar calendar = dateTimeHelper.getFirstWeekDay();
+        Calendar calendar = dateTimeHelper.getFirstWeekDay(weekNumberAgo);
 
         for (String dayName : WeekDayName.Days) {
 

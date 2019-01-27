@@ -8,25 +8,20 @@ import java.util.TimeZone;
 
 public final class DateTimeHelper {
 
-    private String _timeZone;
+    private TimeZone _timeZone;
 
     public DateTimeHelper(String timeZone) {
 
         if (timeZone == null) {
             throw new NullPointerException("timeZone");
         }
-        _timeZone = timeZone;
-    }
-
-    private TimeZone getTimeZone() {
-
-        return TimeZone.getTimeZone(_timeZone);
+        _timeZone = TimeZone.getTimeZone(timeZone);
     }
 
     private String getLocalDateTimeString(String formatString, Date date) {
 
         SimpleDateFormat format = new SimpleDateFormat(formatString, Locale.US);
-        format.setTimeZone(TimeZone.getTimeZone(_timeZone));
+        format.setTimeZone(_timeZone);
         return format.format(date);
     }
 
@@ -45,23 +40,37 @@ public final class DateTimeHelper {
         return getLocalDateTimeString("EEEE", date);
     }
 
-    public Calendar getLocalCalendar() {
+    public Calendar getCurrentCalendar(int weekNumberAgo) {
 
-        return Calendar.getInstance(getTimeZone());
+        Calendar result = Calendar.getInstance(_timeZone);
+        result.add(Calendar.WEEK_OF_YEAR, -weekNumberAgo);
+        return result;
     }
 
-    public Calendar getFirstWeekDay() {
+    public Calendar getFirstWeekDay(int weekNumberAgo) {
 
-        Calendar calendar = getLocalCalendar();
+        Calendar calendar = getCurrentCalendar(weekNumberAgo);
         int previousWeekDays = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
         calendar.add(Calendar.DAY_OF_YEAR, -previousWeekDays);
         return calendar;
     }
 
-    public Calendar getLastWeekDay() {
+    public Calendar getLastWeekDay(int weekNumberAgo) {
 
-        Calendar calendar = getFirstWeekDay();
+        Calendar calendar = getFirstWeekDay(weekNumberAgo);
         calendar.add(Calendar.DAY_OF_YEAR, 6);
         return calendar;
+    }
+
+    public Calendar getWeekDay(int weekDayNumber, int weekNumberAgo) {
+
+        if (weekDayNumber == 0) {
+            return getCurrentCalendar(weekNumberAgo);
+        }
+        else {
+            Calendar calendar = getFirstWeekDay(weekNumberAgo);
+            calendar.add(Calendar.DAY_OF_YEAR, weekDayNumber - 1);
+            return calendar;
+        }
     }
 }

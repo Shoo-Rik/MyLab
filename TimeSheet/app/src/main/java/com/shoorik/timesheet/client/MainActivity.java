@@ -1,7 +1,6 @@
 package com.shoorik.timesheet.client;
 
 import android.app.TimePickerDialog;
-import android.content.ContextWrapper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.shoorik.timesheet.dbconnector.DataStorageFactory;
 import com.shoorik.timesheet.dbconnector.DataStorageType;
 import com.shoorik.timesheet.model.DataModel;
 
+import java.security.InvalidParameterException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DateTimeHelper _dateTimeHelper;
     private DataModel _model;
+    private int _weekNumberAgo = 0;
 
     public MainActivity() {
     }
@@ -37,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         // [TODO] Remove hardcoded data storage type SharedPreferences
         _model = new DataModel(DataStorageFactory.GetDataStorage(this, DataStorageType.SharedPreferences)); // DataStorageType.SQLite));
 
-        Calendar calendar = _dateTimeHelper.getFirstWeekDay();
+        Calendar calendar = _dateTimeHelper.getFirstWeekDay(_weekNumberAgo);
 
         InitializeSpecificWeek(calendar);
 
-        calendar = _dateTimeHelper.getLocalCalendar();
+        calendar = _dateTimeHelper.getCurrentCalendar(_weekNumberAgo);
 
         // Initialize Start Time
         Date startTime = _model.getStartTime(calendar.getTime());
@@ -56,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize header
         TextView weekHeaderView = (TextView) findViewById(R.id.periodText);
         String weekHeaderText = String.format("From %1$s To %2$s",
-                _dateTimeHelper.getDateString(_dateTimeHelper.getFirstWeekDay().getTime()),
-                _dateTimeHelper.getDateString(_dateTimeHelper.getLastWeekDay().getTime()));
+                _dateTimeHelper.getDateString(_dateTimeHelper.getFirstWeekDay(_weekNumberAgo).getTime()),
+                _dateTimeHelper.getDateString(_dateTimeHelper.getLastWeekDay(_weekNumberAgo).getTime()));
         weekHeaderView.setText(weekHeaderText);
 
         UpdateWeekBalance();
@@ -116,10 +117,12 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    private void onChooseTime(final Boolean isStartTime) {
+    private void onChooseTime(final Boolean isStartTime, final int weekDayNumber) {
+
+        final int weekNumberAgo = (weekDayNumber == 0) ? 0 : _weekNumberAgo;
 
         // Get Current Time
-        final Calendar c = _dateTimeHelper.getLocalCalendar();
+        final Calendar c = _dateTimeHelper.getCurrentCalendar(weekNumberAgo);
         int mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMinute = c.get(Calendar.MINUTE);
 
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                Calendar calendar = _dateTimeHelper.getLocalCalendar();
+                Calendar calendar = _dateTimeHelper.getWeekDay(weekDayNumber, weekNumberAgo);
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
@@ -137,17 +140,26 @@ public class MainActivity extends AppCompatActivity {
                 String weekDay = _dateTimeHelper.getWeekDay(selectedDateTime);
                 String currentTimeString = _dateTimeHelper.getTimeString(selectedDateTime);
 
+                String currentWeekDay = _dateTimeHelper.getWeekDay(_dateTimeHelper.getCurrentCalendar(weekNumberAgo).getTime());
+                boolean isCurrentWeekDay = currentWeekDay.equalsIgnoreCase(weekDay);
+
                 if (isStartTime) {
                     // Set start date time
                     _model.setStartTime(selectedDateTime);
-                    // Set current start time
-                    ((TextView)findViewById(R.id.startText)).setText(currentTimeString);
+
+                    if (isCurrentWeekDay) {
+                        // Set current start time
+                        ((TextView) findViewById(R.id.startText)).setText(currentTimeString);
+                    }
                 }
                 else {
                     // Set end date time
                     _model.setEndTime(selectedDateTime);
-                    // Set current end time
-                    ((TextView)findViewById(R.id.endText)).setText(currentTimeString);
+
+                    if (isCurrentWeekDay) {
+                        // Set current end time
+                        ((TextView) findViewById(R.id.endText)).setText(currentTimeString);
+                    }
                 }
                 // Set week day's start/end time
                 ((TextView)findViewById(GetWeekDayViewId(weekDay, isStartTime))).setText(currentTimeString);
@@ -160,15 +172,39 @@ public class MainActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    public void onClickStartButton(View view) {
+    public void onClickStartButton(View view) throws InvalidParameterException {
 
-        int name = view.getId();
-        onChooseTime(true);
+        int weekDayNumber;
+        switch (view.getId()) {
+            case R.id.startWorkDay: weekDayNumber = 0; break;
+            case R.id.MondayStartText: weekDayNumber = 1; break;
+            case R.id.TuesdayStartText: weekDayNumber = 2; break;
+            case R.id.WednesdayStartText: weekDayNumber = 3; break;
+            case R.id.ThursdayStartText: weekDayNumber = 4; break;
+            case R.id.FridayStartText: weekDayNumber = 5; break;
+            case R.id.SaturdayStartText: weekDayNumber = 6; break;
+            case R.id.SundayStartText: weekDayNumber = 7; break;
+            default: throw new InvalidParameterException("Unknown week day number");
+        }
+
+        onChooseTime(true, weekDayNumber);
     }
 
-    public void onClickEndButton(View view) {
+    public void onClickEndButton(View view) throws InvalidParameterException {
 
-        onChooseTime(false);
+        int weekDayNumber;
+        switch (view.getId()) {
+            case R.id.endWorkDay: weekDayNumber = 0; break;
+            case R.id.MondayEndText: weekDayNumber = 1; break;
+            case R.id.TuesdayEndText: weekDayNumber = 2; break;
+            case R.id.WednesdayEndText: weekDayNumber = 3; break;
+            case R.id.ThursdayEndText: weekDayNumber = 4; break;
+            case R.id.FridayEndText: weekDayNumber = 5; break;
+            case R.id.SaturdayEndText: weekDayNumber = 6; break;
+            case R.id.SundayEndText: weekDayNumber = 7; break;
+            default: throw new InvalidParameterException("Unknown week day number");
+        }
+        onChooseTime(false, weekDayNumber);
     }
 
     private void UpdateDuration(Date date, String dayName) {
@@ -210,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String GetWeekBalance() {
 
-        long time = _model.getWeekBalance(_dateTimeHelper);
+        long time = _model.getWeekBalance(_dateTimeHelper, _weekNumberAgo);
         long hours = time / 60;
         long minutes = time % 60;
 

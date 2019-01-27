@@ -70,11 +70,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Monday "/>
-            <!--<TextView
-                android:id="@+id/MondayStartText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>-->
             <Button
                 android:id="@+id/MondayStartText"
                 android:layout_width="wrap_content"
@@ -83,11 +78,6 @@
                 android:text="@string/unknownTime"
                 android:background="@android:color/transparent"
                 android:onClick="onClickStartButton" />
-            <!--<TextView
-                android:id="@+id/MondayEndText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>-->
             <Button
                 android:id="@+id/MondayEndText"
                 android:layout_width="wrap_content"
@@ -109,16 +99,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Tuesday "/>
-            <TextView
+            <Button
                 android:id="@+id/TuesdayStartText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
-            <TextView
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickStartButton" />
+            <Button
                 android:id="@+id/TuesdayEndText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickEndButton" />
             <TextView
                 android:id="@+id/TuesdayDurationText"
                 android:layout_height="wrap_content"
@@ -132,16 +128,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Wednesday "/>
-            <TextView
+            <Button
                 android:id="@+id/WednesdayStartText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
-            <TextView
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickStartButton" />
+            <Button
                 android:id="@+id/WednesdayEndText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickEndButton" />
             <TextView
                 android:id="@+id/WednesdayDurationText"
                 android:layout_height="wrap_content"
@@ -155,16 +157,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Thursday "/>
-            <TextView
+            <Button
                 android:id="@+id/ThursdayStartText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
-            <TextView
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickStartButton" />
+            <Button
                 android:id="@+id/ThursdayEndText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickEndButton" />
             <TextView
                 android:id="@+id/ThursdayDurationText"
                 android:layout_height="wrap_content"
@@ -178,16 +186,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Friday "/>
-            <TextView
+            <Button
                 android:id="@+id/FridayStartText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
-            <TextView
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickStartButton" />
+            <Button
                 android:id="@+id/FridayEndText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickEndButton" />
             <TextView
                 android:id="@+id/FridayDurationText"
                 android:layout_height="wrap_content"
@@ -201,16 +215,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Saturday "/>
-            <TextView
+            <Button
                 android:id="@+id/SaturdayStartText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
-            <TextView
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickStartButton" />
+            <Button
                 android:id="@+id/SaturdayEndText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickEndButton" />
             <TextView
                 android:id="@+id/SaturdayDurationText"
                 android:layout_height="wrap_content"
@@ -224,16 +244,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text=" Sunday "/>
-            <TextView
+            <Button
                 android:id="@+id/SundayStartText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
-            <TextView
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickStartButton" />
+            <Button
                 android:id="@+id/SundayEndText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                android:text="@string/unknownTime"
+                android:background="@android:color/transparent"
+                android:onClick="onClickEndButton" />
             <TextView
                 android:id="@+id/SundayDurationText"
                 android:layout_height="wrap_content"
