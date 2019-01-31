@@ -7,341 +7,284 @@
     tools:context="com.shoorik.timesheet.client.MainActivity">
 
     <LinearLayout
-        android:id="@+id/line0"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/title"
+        style="@style/GeneralRow">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="My timesheet" />
+        <TextView
+            style="@style/Title"
+            android:text="My timesheet"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/line3"
-        app:layout_constraintTop_toBottomOf="@+id/line0"
-        android:layout_height="wrap_content"
-        android:layout_width="368dp"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        style="@style/GeneralRow">
 
         <TextView
             android:id="@+id/periodText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10px"
-            android:textSize="25dp"
-            android:text="Week History (@+id/WeekFirstDay - @+id/WeekLastDay)"/>
+            android:textSize="22dp"
+            android:text="Week View (@+id/WeekFirstDay - @+id/WeekLastDay)"
+            />
     </LinearLayout>
 
     <TableLayout
         android:id="@+id/weekTable"
         app:layout_constraintTop_toBottomOf="@+id/line3"
-        android:layout_height="wrap_content"
-        android:layout_width="368dp">
+        style="@style/GeneralRow">
 
         <TableRow>
             <TextView
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text=" Day "/>
+                style="@style/ColumnHeaderText"
+                android:text="Day"
+                />
             <TextView
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text=" Start "/>
+                style="@style/ColumnHeaderText"
+                android:text="Start"
+                />
             <TextView
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text=" Finish "/>
+                style="@style/ColumnHeaderText"
+                android:text="Finish"
+                />
             <TextView
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text=" Duration "/>
+                style="@style/ColumnHeaderText"
+                android:text="Duration"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/MondayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Monday "/>
+                style="@style/RowText"
+                android:text="Monday"
+                />
             <Button
                 android:id="@+id/MondayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/MondayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/MondayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/TuesdayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Tuesday "/>
+                style="@style/RowText"
+                android:text="Tuesday"
+                />
             <Button
                 android:id="@+id/TuesdayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/TuesdayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/TuesdayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/WednesdayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Wednesday "/>
+                style="@style/RowText"
+                android:text="Wednesday"
+                />
             <Button
                 android:id="@+id/WednesdayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/WednesdayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/WednesdayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/ThursdayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Thursday "/>
+                style="@style/RowText"
+                android:text="Thursday"
+                />
             <Button
                 android:id="@+id/ThursdayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/ThursdayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/ThursdayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/FridayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Friday "/>
+                style="@style/RowText"
+                android:text="Friday"
+                />
             <Button
                 android:id="@+id/FridayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/FridayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/FridayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/SaturdayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Saturday "/>
+                style="@style/RowText"
+                android:text="Saturday"
+                />
             <Button
                 android:id="@+id/SaturdayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/SaturdayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/SaturdayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
         <TableRow>
             <TextView
                 android:id="@+id/SundayText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text=" Sunday "/>
+                style="@style/RowText"
+                android:text="Sunday"
+                />
             <Button
                 android:id="@+id/SundayStartText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickStartButton" />
+                android:onClick="onClickStartButton"
+                />
             <Button
                 android:id="@+id/SundayEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:background="@android:color/transparent"
-                android:onClick="onClickEndButton" />
+                android:onClick="onClickEndButton"
+                />
             <TextView
                 android:id="@+id/SundayDurationText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/unknownTime"/>
+                style="@style/RowText"
+                android:text="@string/unknownTime"
+                />
         </TableRow>
-
-        <TableRow>
-            <TextView
-                android:id="@+id/WeekBalanceText"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="WeekBalance: "/>
-
-            <TextView
-                android:id="@+id/WeekBalance"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="@string/unknownTime"/>
-        </TableRow>
-
     </TableLayout>
 
     <LinearLayout
-        android:id="@+id/line1"
+        android:id="@+id/balance"
         app:layout_constraintTop_toBottomOf="@+id/weekTable"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/GeneralRow">
+
+        <TextView
+            android:id="@+id/WeekBalanceText"
+            style="@style/BalanceRow"
+            android:text="WeekBalance:"
+            />
+        <TextView
+            android:id="@+id/WeekBalance"
+            style="@style/BalanceRow"
+            android:text="@string/unknownTime"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line1"
+        app:layout_constraintTop_toBottomOf="@+id/balance"
+        style="@style/GeneralRow">
 
         <TextView
             android:id="@+id/normalStartTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="10:00" />
-
+            style="@style/CurrentTime"
+            android:text="10:00"
+            />
         <Button
             android:id="@+id/startWorkDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CurrentTime"
             android:text="@string/start"
-            android:onClick="onClickStartButton" />
-
+            android:onClick="onClickStartButton"
+            />
         <TextView
             android:id="@+id/startText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="This is text view" />
-
+            style="@style/CurrentTime"
+            android:text="This is text view"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/line2"
         app:layout_constraintTop_toBottomOf="@+id/line1"
-        android:layout_height="wrap_content"
-        android:layout_width="368dp"
-        android:orientation="horizontal">
+        style="@style/GeneralRow">
 
         <TextView
             android:id="@+id/normalEndTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="19:00" />
-
+            style="@style/CurrentTime"
+            android:text="19:00"
+            />
         <Button
             android:id="@+id/endWorkDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CurrentTime"
             android:text="@string/end"
-            android:onClick="onClickEndButton" />
-
+            android:onClick="onClickEndButton"
+            />
         <TextView
             android:id="@+id/endText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="This is text view" />
+            style="@style/CurrentTime"
+            android:text="This is text view"
+            />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
