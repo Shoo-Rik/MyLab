@@ -12,7 +12,8 @@
 
         <TextView
             style="@style/Title"
-            android:text="My timesheet"
+            android:text="@string/app_title"
+            android:fontFamily="casual"
             />
     </LinearLayout>
 
@@ -21,13 +22,16 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         style="@style/GeneralRow">
 
-        <TextView
+        <Button
             android:id="@+id/periodText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10px"
             android:textSize="22dp"
             android:text="Week View (@+id/WeekFirstDay - @+id/WeekLastDay)"
+            android:fontFamily="sans-serif-light"
+            android:background="@android:color/transparent"
+            android:onClick="onClickWeek"
             />
     </LinearLayout>
 
@@ -39,38 +43,39 @@
         <TableRow>
             <TextView
                 style="@style/ColumnHeaderText"
-                android:text="Day"
+                android:text="@string/day"
+                android:fontFamily="monospace"
                 />
             <TextView
                 style="@style/ColumnHeaderText"
-                android:text="Start"
+                android:text="@string/start"
                 />
             <TextView
                 style="@style/ColumnHeaderText"
-                android:text="Finish"
+                android:text="@string/finish"
                 />
             <TextView
                 style="@style/ColumnHeaderText"
-                android:text="Duration"
+                android:text="@string/duration"
                 />
         </TableRow>
         <TableRow>
             <TextView
                 android:id="@+id/MondayText"
                 style="@style/RowText"
-                android:text="Monday"
+                android:text="@string/monday"
                 />
             <Button
                 android:id="@+id/MondayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/MondayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/MondayDurationText"
@@ -82,19 +87,19 @@
             <TextView
                 android:id="@+id/TuesdayText"
                 style="@style/RowText"
-                android:text="Tuesday"
+                android:text="@string/tuesday"
                 />
             <Button
                 android:id="@+id/TuesdayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/TuesdayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/TuesdayDurationText"
@@ -106,19 +111,19 @@
             <TextView
                 android:id="@+id/WednesdayText"
                 style="@style/RowText"
-                android:text="Wednesday"
+                android:text="@string/wednesday"
                 />
             <Button
                 android:id="@+id/WednesdayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/WednesdayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/WednesdayDurationText"
@@ -130,19 +135,19 @@
             <TextView
                 android:id="@+id/ThursdayText"
                 style="@style/RowText"
-                android:text="Thursday"
+                android:text="@string/thursday"
                 />
             <Button
                 android:id="@+id/ThursdayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/ThursdayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/ThursdayDurationText"
@@ -154,19 +159,19 @@
             <TextView
                 android:id="@+id/FridayText"
                 style="@style/RowText"
-                android:text="Friday"
+                android:text="@string/friday"
                 />
             <Button
                 android:id="@+id/FridayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/FridayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/FridayDurationText"
@@ -178,19 +183,19 @@
             <TextView
                 android:id="@+id/SaturdayText"
                 style="@style/RowText"
-                android:text="Saturday"
+                android:text="@string/saturday"
                 />
             <Button
                 android:id="@+id/SaturdayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/SaturdayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/SaturdayDurationText"
@@ -202,19 +207,19 @@
             <TextView
                 android:id="@+id/SundayText"
                 style="@style/RowText"
-                android:text="Sunday"
+                android:text="@string/sunday"
                 />
             <Button
                 android:id="@+id/SundayStartText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickStartButton"
+                android:onClick="onClickTimeButton"
                 />
             <Button
                 android:id="@+id/SundayEndText"
                 style="@style/TimeButton"
                 android:text="@string/unknownTime"
-                android:onClick="onClickEndButton"
+                android:onClick="onClickTimeButton"
                 />
             <TextView
                 android:id="@+id/SundayDurationText"
@@ -232,7 +237,7 @@
         <TextView
             android:id="@+id/WeekBalanceText"
             style="@style/BalanceRow"
-            android:text="WeekBalance:"
+            android:text="@string/weekBalance"
             />
         <TextView
             android:id="@+id/WeekBalance"
@@ -246,21 +251,27 @@
         app:layout_constraintTop_toBottomOf="@+id/balance"
         style="@style/GeneralRow">
 
+        <!--<TextView
+            style="@style/CurrentTime"
+            android:paddingLeft="50dp"
+            android:text=""
+            />-->
         <TextView
             android:id="@+id/normalStartTime"
             style="@style/CurrentTime"
-            android:text="10:00"
+            android:text="@string/plannedStartTime"
+            android:layout_marginLeft="15dp"
             />
         <Button
             android:id="@+id/startWorkDay"
             style="@style/CurrentTime"
             android:text="@string/start"
-            android:onClick="onClickStartButton"
+            android:onClick="onClickTimeButton"
             />
         <TextView
             android:id="@+id/startText"
             style="@style/CurrentTime"
-            android:text="This is text view"
+            android:text="@string/placeHolder"
             />
     </LinearLayout>
 
@@ -269,21 +280,27 @@
         app:layout_constraintTop_toBottomOf="@+id/line1"
         style="@style/GeneralRow">
 
+        <!--<TextView
+            style="@style/CurrentTime"
+            android:paddingLeft="50dp"
+            android:text=""
+            />-->
         <TextView
             android:id="@+id/normalEndTime"
             style="@style/CurrentTime"
-            android:text="19:00"
+            android:text="@string/plannedEndTime"
+            android:layout_marginLeft="15dp"
             />
         <Button
             android:id="@+id/endWorkDay"
             style="@style/CurrentTime"
             android:text="@string/end"
-            android:onClick="onClickEndButton"
+            android:onClick="onClickTimeButton"
             />
         <TextView
             android:id="@+id/endText"
             style="@style/CurrentTime"
-            android:text="This is text view"
+            android:text="@string/placeHolder"
             />
     </LinearLayout>
 
