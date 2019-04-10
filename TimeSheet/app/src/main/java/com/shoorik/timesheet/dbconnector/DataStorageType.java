@@ -1,8 +1,8 @@
 package com.shoorik.timesheet.dbconnector;
 
-public enum DataStorageType {
+public  final class DataStorageType {
 
-    None,
-    SharedPreferences,
-    SQLite
+    public static final String None = null;
+    public static final String SharedPreferences = "SharedPreferences";
+    public static final String SQLite = "SQLite";
 }

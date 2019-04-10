@@ -1,4 +1,5 @@
 <resources>
+    <string name="DataStorageType">SQLite</string>
     <string name="app_name">TimeSheet</string>
     <string name="start">Start</string>
     <string name="end">End</string>

@@ -264,7 +264,7 @@
             />
         <Button
             android:id="@+id/startWorkDay"
-            style="@style/CurrentTime"
+            style="@style/CurrentTimeButton"
             android:text="@string/start"
             android:onClick="onClickTimeButton"
             />
@@ -293,7 +293,7 @@
             />
         <Button
             android:id="@+id/endWorkDay"
-            style="@style/CurrentTime"
+            style="@style/CurrentTimeButton"
             android:text="@string/end"
             android:onClick="onClickTimeButton"
             />

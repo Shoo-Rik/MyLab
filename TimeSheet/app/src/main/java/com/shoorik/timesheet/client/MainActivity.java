@@ -14,7 +14,6 @@ import com.shoorik.timesheet.common.DateTimeHelper;
 import com.shoorik.timesheet.common.MessageHelper;
 import com.shoorik.timesheet.common.WeekDayName;
 import com.shoorik.timesheet.dbconnector.DataStorageFactory;
-import com.shoorik.timesheet.dbconnector.DataStorageType;
 import com.shoorik.timesheet.model.DataModel;
 
 import java.security.InvalidParameterException;
@@ -41,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
-        // [TODO] Remove hardcoded data storage type SharedPreferences
-        _model = new DataModel(DataStorageFactory.GetDataStorage(this, DataStorageType.SharedPreferences)); // DataStorageType.SQLite));
+        _model = new DataModel(DataStorageFactory.GetDataStorage(this, getString(R.string.DataStorageType)));
 
         UpdateAllControls();
     }

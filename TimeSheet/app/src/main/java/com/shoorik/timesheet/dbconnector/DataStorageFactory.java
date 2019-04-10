@@ -10,16 +10,18 @@ import java.security.InvalidParameterException;
 
 public class DataStorageFactory {
 
-    public static IDataStorage GetDataStorage(ContextWrapper context, DataStorageType type) {
+    public static IDataStorage GetDataStorage(ContextWrapper context, String type) {
 
-        if (type == DataStorageType.SharedPreferences) {
-            return new SharedPreferencesDataStorage(context);
+        switch (type) {
+
+            case DataStorageType.SharedPreferences:
+                return new SharedPreferencesDataStorage(context);
+
+            case DataStorageType.SQLite:
+                return new SQLiteDataStorage(context);
+
+            default:
+                throw new InvalidParameterException(type.toString());
         }
-
-        if (type == DataStorageType.SQLite) {
-            return new SQLiteDataStorage(context);
-        }
-
-        throw new InvalidParameterException(type.toString());
     }
 }
