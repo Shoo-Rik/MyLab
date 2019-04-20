@@ -1,12 +1,14 @@
 package com.shoorik.timesheet.common;
 
+import com.shoorik.timesheet.interfaces.IDateTimeHelper;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public final class DateTimeHelper {
+public final class DateTimeHelper implements IDateTimeHelper {
 
     private TimeZone _timeZone;
 
@@ -25,21 +27,25 @@ public final class DateTimeHelper {
         return format.format(date);
     }
 
+    @Override
     public String getDateString(Date date) {
 
         return getLocalDateTimeString("yyyy-MM-dd", date);
     }
 
+    @Override
     public String getTimeString(Date date) {
 
         return getLocalDateTimeString("HH:mm", date);
     }
 
+    @Override
     public String getWeekDay(Date date) {
 
         return getLocalDateTimeString("EEEE", date);
     }
 
+    @Override
     public Calendar getCurrentCalendar(int weekNumberAgo) {
 
         Calendar result = Calendar.getInstance(_timeZone);
@@ -47,6 +53,7 @@ public final class DateTimeHelper {
         return result;
     }
 
+    @Override
     public Calendar getFirstWeekDay(int weekNumberAgo) {
 
         Calendar calendar = getCurrentCalendar(weekNumberAgo);
@@ -55,6 +62,7 @@ public final class DateTimeHelper {
         return calendar;
     }
 
+    @Override
     public Calendar getLastWeekDay(int weekNumberAgo) {
 
         Calendar calendar = getFirstWeekDay(weekNumberAgo);
@@ -62,6 +70,7 @@ public final class DateTimeHelper {
         return calendar;
     }
 
+    @Override
     public Calendar getWeekDay(int weekDayNumber, int weekNumberAgo) {
 
         if (weekDayNumber == 0) {

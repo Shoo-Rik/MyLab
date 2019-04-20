@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="DataStorageType">SQLite</string>
     <string name="app_name">TimeSheet</string>
@@ -20,4 +21,6 @@
     <string name="placeHolder">This is text view</string>
     <string name="plannedEndTime">19:00</string>
     <string name="plannedStartTime">10:00</string>
+    <integer name="workDayDuration_hours">8</integer>
+    <integer name="workDayDuration_minutes">45</integer>
 </resources>

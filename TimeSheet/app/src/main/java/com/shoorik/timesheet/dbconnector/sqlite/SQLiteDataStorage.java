@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.shoorik.timesheet.R;
+import com.shoorik.timesheet.common.DateTimeHelper;
 import com.shoorik.timesheet.interfaces.IDataStorage;
+import com.shoorik.timesheet.interfaces.IDateTimeHelper;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,11 +16,13 @@ import java.util.Date;
 public class SQLiteDataStorage implements IDataStorage {
 
     private SQLiteDBHelper _sqliteDbHelper;
+    private IDateTimeHelper _dateTimeHelper;
 
     public SQLiteDataStorage(Context context) {
 
         // создаем объект для создания и управления версиями БД
         _sqliteDbHelper = new SQLiteDBHelper(context);
+        _dateTimeHelper = new DateTimeHelper(context.getString(R.string.timeZone));
     }
 
     @Override
@@ -64,7 +69,7 @@ public class SQLiteDataStorage implements IDataStorage {
                 int hours = isStartTime ? dateTimeParameters.StartHour : dateTimeParameters.EndHour;
                 int minutes = isStartTime ? dateTimeParameters.StartMinute : dateTimeParameters.EndMinute;
 
-                Calendar calendarDate = Calendar.getInstance();
+                Calendar calendarDate = _dateTimeHelper.getCurrentCalendar(0);
                 calendarDate.set(year, month, day, hours, minutes, 0);
 
                 result = calendarDate.getTime();
@@ -86,7 +91,7 @@ public class SQLiteDataStorage implements IDataStorage {
         final String hourColumnName = isStartTime ? WorkTimeTable.StartHourColumnName : WorkTimeTable.EndHourColumnName;
         final String minuteColumnName = isStartTime ? WorkTimeTable.StartMinuteColumnName : WorkTimeTable.EndMinuteColumnName;
 
-        Calendar calendarDate = Calendar.getInstance();
+        Calendar calendarDate = _dateTimeHelper.getCurrentCalendar(0);
         calendarDate.setTime(dateTime);
 
         cv.put(WorkTimeTable.YearColumnName, calendarDate.get(Calendar.YEAR));
@@ -101,7 +106,6 @@ public class SQLiteDataStorage implements IDataStorage {
         SQLiteDatabase db = _sqliteDbHelper.getWritableDatabase();
         try {
             if (GetTimeByDate(db, dateTimeParameters, isStartTime)) {
-
                 String whereClause = String.format("%s=%d", WorkTimeTable.IdColumnName, dateTimeParameters.Id);
                 int rowCount = db.update(WorkTimeTable.TableName, cv, whereClause, null);
             } else {
@@ -114,9 +118,9 @@ public class SQLiteDataStorage implements IDataStorage {
         }
     }
 
-    private static DateTimeHolder InitializeDate(Date date) {
+    private DateTimeHolder InitializeDate(Date date) {
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _dateTimeHelper.getCurrentCalendar(0);
         calendar.setTime(date);
 
         DateTimeHolder result = new DateTimeHolder();

@@ -11,6 +11,7 @@ import android.widget.TimePicker;
 
 import com.shoorik.timesheet.R;
 import com.shoorik.timesheet.common.DateTimeHelper;
+import com.shoorik.timesheet.interfaces.IDateTimeHelper;
 import com.shoorik.timesheet.common.MessageHelper;
 import com.shoorik.timesheet.common.WeekDayName;
 import com.shoorik.timesheet.dbconnector.DataStorageFactory;
@@ -22,7 +23,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DateTimeHelper _dateTimeHelper;
+    private IDateTimeHelper _dateTimeHelper;
     private DataModel _model;
     private int _weekNumberAgo = 0;
 
@@ -39,8 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        // [TODO] DI
         _dateTimeHelper = new DateTimeHelper(getString(R.string.timeZone));
-        _model = new DataModel(DataStorageFactory.GetDataStorage(this, getString(R.string.DataStorageType)));
+
+        _model = new DataModel(
+                DataStorageFactory.GetDataStorage(this, getString(R.string.DataStorageType)),
+                getResources().getInteger(R.integer.workDayDuration_hours),
+                getResources().getInteger(R.integer.workDayDuration_minutes));
 
         UpdateAllControls();
     }

@@ -1,6 +1,6 @@
 package com.shoorik.timesheet.model;
 
-import com.shoorik.timesheet.common.DateTimeHelper;
+import com.shoorik.timesheet.interfaces.IDateTimeHelper;
 import com.shoorik.timesheet.common.WeekDayName;
 import com.shoorik.timesheet.interfaces.IDataStorage;
 
@@ -9,11 +9,15 @@ import java.util.Date;
 
 public class DataModel {
 
-    IDataStorage _dataStorage;
+    private IDataStorage _dataStorage;
+    private int _workDayHours;
+    private int _workDayMinutes;
 
-    public DataModel(IDataStorage dataStorage) {
+    public DataModel(IDataStorage dataStorage, int workDayHours, int workDayMinutes) {
 
         _dataStorage = dataStorage;
+        _workDayHours = workDayHours;
+        _workDayMinutes = workDayMinutes;
     }
 
     public Date getStartTime(Date startDate) {
@@ -36,7 +40,7 @@ public class DataModel {
         _dataStorage.setEndTime(endDateTime);
     }
 
-    public long getWeekBalance(DateTimeHelper dateTimeHelper, int weekNumberAgo) {
+    public long getWeekBalance(IDateTimeHelper dateTimeHelper, int weekNumberAgo) {
 
         int dayCount = 0;
         long time = 0;
@@ -56,11 +60,8 @@ public class DataModel {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        final int workDayHours = 8;
-        final int workDayMinutes = 45;
-
         long actualTotalMinutes = time / 60000;
-        long targetTotalMinutes = dayCount * (workDayHours * 60  + workDayMinutes);
+        long targetTotalMinutes = dayCount * (_workDayHours * 60  + _workDayMinutes);
 
         return actualTotalMinutes - targetTotalMinutes;
     }
