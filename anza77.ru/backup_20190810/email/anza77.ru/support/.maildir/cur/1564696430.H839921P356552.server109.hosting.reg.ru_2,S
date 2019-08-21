@@ -1,0 +1,79 @@
+Return-path: <akulyanov@mail.ru>
+Envelope-to: support@anza77.ru
+Delivery-date: Fri, 02 Aug 2019 00:53:50 +0300
+Authentication-Results: dkim=pass, header.i=@mail.ru
+Received: from relay7.hosting.reg.ru ([31.31.194.101])
+	by server109.hosting.reg.ru with esmtps (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+	(Exim 4.92)
+	(envelope-from <akulyanov@mail.ru>)
+	id 1htJ1C-001Ukn-QP
+	for support@anza77.ru; Fri, 02 Aug 2019 00:53:50 +0300
+Received-SPF: pass (mail.ru ... _spf.mail.ru: 94.100.188.37 is authorized to use 'akulyanov@mail.ru' in 'mfrom' identity (mechanism 'ip4:94.100.176.0/20' matched)) receiver=relay7.hosting.reg.ru; identity=mailfrom; envelope-from="akulyanov@mail.ru"; helo=f128.i.mail.ru; client-ip=94.100.188.37
+Received: from f128.i.mail.ru (f128.i.mail.ru [94.100.188.37])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by relay7.hosting.reg.ru (Postfix) with ESMTPS id D7637200374
+	for <support@anza77.ru>; Fri,  2 Aug 2019 00:53:49 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+	h=References:In-Reply-To:Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:To:From; bh=YG4pBEVdbs7CHPiSQyHqeYrIbdqngA6znKXDWV+ZYZw=;
+	b=DJOjFHRDfZqvLXYtPJt7ZQPMIoXex1wQkijP4TwURmCg+XOSA9DgdFQpc8n5Q70EnK4Z0N8TZ0JLOmbaPYshY/hWHRhxAq7Xe7I5sXSc5fFBp0PHootGjD/5p4UqgDorafeNMk8oGy2mAWsOB59jrKF6WHj/6S/kp3+rcTNVA9U=;
+Received: by f128.i.mail.ru with local (envelope-from <akulyanov@mail.ru>)
+	id 1htJ1B-0005O8-ER
+	for support@anza77.ru; Fri, 02 Aug 2019 00:53:49 +0300
+Received: by e.mail.ru with HTTP;
+	Fri, 02 Aug 2019 00:53:49 +0300
+From: =?UTF-8?B?QWxleGFuZGVyIEt1bHlhbm92?= <akulyanov@mail.ru>
+To: support@anza77.ru
+Subject: =?UTF-8?B?UmU6INC/0YDQvtCy0LXRgNC60LA=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+Date: Fri, 02 Aug 2019 00:53:49 +0300
+Reply-To: =?UTF-8?B?QWxleGFuZGVyIEt1bHlhbm92?= <akulyanov@mail.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1564696429.651426256@f128.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--NjTCqdRU5W0qtxoUI0675nErd6uPkj7U1564696429"
+Authentication-Results: f128.i.mail.ru; auth=pass smtp.auth=akulyanov@mail.ru smtp.mailfrom=akulyanov@mail.ru
+X-77F55803: 3FB72713B6841EEE9110AD76CAB125BE988784FC6C4AE31F8AD534E665529DC48360F4CDEB63F599E052504CAD2311D10E0908C982AB64E2
+X-7FA49CB5: 70AAF3C13DB7016878DA827A17800CE73F90AB024E5EAD52D82A6BABE6F325ACA01ED31736435A1F1B59CA4C82EFA65840E9CAA52645EB5BA859EA43D9C52B6AF6B57BC7E64490618DEB871D839B73339E8FC8737B5C22498424CA1AAF98A6958941B15DA834481FCF19DD082D7633A0E7DDDDC251EA7DABA471835C12D1D977725E5C173C3A84C3CA5A41EBD8A3A0199FA2833FD35BB23DF004C906525384306FED454B719173D6725E5C173C3A84C39D7D3120FB43BDE39664FDB64971DB35BAAD9279A72BC9ABC4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F93F060FBA3C93C613B503F486389A921A5CC5B56E945C8DA
+X-Mailru-MI: 800
+X-Mailru-Sender: A8EA9427195EDDA748B7E88B6DF6043E2EB8AAE797E3E888B386C714B042E1DD5EF1718A796F8C2FAAC3614FF536F46339518AFF2B888FCE0B9B44829CF77EF955A41D518D8BA3512AA3CDD27765A5664C1AA1A80B7240C10F2DC73CC0BFB1A30DA7A0AF5A3A8387
+X-Mras: OK
+X-Spam: undefined
+In-Reply-To: <1564696290.854279672@f396.i.mail.ru>
+References: <1564696290.854279672@f396.i.mail.ru>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,HTML_MESSAGE,SPF_HELO_PASS,
+	SPF_PASS,UNPARSEABLE_RELAY autolearn=disabled version=3.3.1
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	relay7.hosting.reg.ru
+
+
+----ALT--NjTCqdRU5W0qtxoUI0675nErd6uPkj7U1564696429
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CgoK0KEg0YPQstCw0LbQtdC90LjQtdC8LArQkNC70LXQutGB0LDQvdC00YAg0JrRg9C70YzRj9C9
+0L7Qsi4KCj7Qn9GP0YLQvdC40YbQsCwgIDIg0LDQstCz0YPRgdGC0LAgMjAxOSwgMDo1MSArMDM6
+MDAg0L7RgiBBbGV4YW5kZXIgS3VseWFub3YgPGFrdWx5YW5vdkBtYWlsLnJ1PjoKPgo+Cj4KPgo+
+0KEg0YPQstCw0LbQtdC90LjQtdC8LAo+0JDQu9C10LrRgdCw0L3QtNGAINCa0YPQu9GM0Y/QvdC+
+0LIuCg==
+
+----ALT--NjTCqdRU5W0qtxoUI0675nErd6uPkj7U1564696429
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPjxicj48YnI+PGJyPtChINGD0LLQsNC20LXQvdC40LXQvCw8YnI+0JDQu9C1
+0LrRgdCw0L3QtNGAINCa0YPQu9GM0Y/QvdC+0LIuPGJyPjxicj48YmxvY2txdW90ZSBzdHlsZT0i
+Ym9yZGVyLWxlZnQ6MXB4IHNvbGlkICMwODU3QTY7IG1hcmdpbjoxMHB4OyBwYWRkaW5nOjAgMCAw
+IDEwcHg7Ij4KCdCf0Y/RgtC90LjRhtCwLCAgMiDQsNCy0LPRg9GB0YLQsCAyMDE5LCAwOjUxICsw
+MzowMCDQvtGCIEFsZXhhbmRlciBLdWx5YW5vdiAmbHQ7YWt1bHlhbm92QG1haWwucnUmZ3Q7Ojxi
+cj4KCTxicj4KCTxkaXYgaWQ9IiI+CgoKCgoKCjxkaXYgY2xhc3M9ImpzLWhlbHBlciBqcy1yZWFk
+bXNnLW1zZyI+Cgk8c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwvc3R5bGU+CiAJPGRpdj4KCQkKCQkK
+ICAgICAgICAgICAgPGRpdiBpZD0ic3R5bGVfMTU2NDY5NjI5MTAxMjEwMjk2OTFfQk9EWSI+PGRp
+diBjbGFzcz0iY2xhc3NfMTU2NDcxNjA3MyI+Cjxicj48YnI+PGJyPtChINGD0LLQsNC20LXQvdC4
+0LXQvCw8YnI+0JDQu9C10LrRgdCw0L3QtNGAINCa0YPQu9GM0Y/QvdC+0LIuCjwvZGl2PjwvZGl2
+PgogICAgICAgICAgICAKICAgICAgICAKCQkKCTwvZGl2PgoKCQo8L2Rpdj4KCgo8L2Rpdj4KPC9i
+bG9ja3F1b3RlPgo8YnI+PC9CT0RZPjwvSFRNTD4K
+
+----ALT--NjTCqdRU5W0qtxoUI0675nErd6uPkj7U1564696429--

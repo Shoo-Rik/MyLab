@@ -1,0 +1,64 @@
+Return-path: <akulyanov@mail.ru>
+Envelope-to: support@anza77.ru
+Delivery-date: Fri, 02 Aug 2019 00:51:32 +0300
+Authentication-Results: dkim=pass, header.i=@mail.ru
+Received: from relay7.hosting.reg.ru ([31.31.194.101])
+	by server109.hosting.reg.ru with esmtps (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+	(Exim 4.92)
+	(envelope-from <akulyanov@mail.ru>)
+	id 1htIyy-001OKV-Al
+	for support@anza77.ru; Fri, 02 Aug 2019 00:51:32 +0300
+Received-SPF: pass (mail.ru ... _spf.mail.ru: 185.5.136.67 is authorized to use 'akulyanov@mail.ru' in 'mfrom' identity (mechanism 'ip4:185.5.136.0/22' matched)) receiver=relay7.hosting.reg.ru; identity=mailfrom; envelope-from="akulyanov@mail.ru"; helo=f396.i.mail.ru; client-ip=185.5.136.67
+Received: from f396.i.mail.ru (f396.i.mail.ru [185.5.136.67])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by relay7.hosting.reg.ru (Postfix) with ESMTPS id 1C7BF2001DB
+	for <support@anza77.ru>; Fri,  2 Aug 2019 00:51:31 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+	h=Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:To:From; bh=7Bp4H3RSmdXKyHRBzX84d0oCxMA60CRh6WqwOwUIawk=;
+	b=KqoWr4/8dvB19K2yxnIx3z0p/HQ3a1ojxpK++T70sisZSDUMhD5NkKQpMnHIuIgSHCkGJdVwEqk9dAnCuF8YDxd9XfHhAwV3VDG6QRwES72d28BqTDo858VKLgbpfylUStK4cUBtBjACa9j+gR5GOdO1B6JO1qLD4l5gaGybUD4=;
+Received: by f396.i.mail.ru with local (envelope-from <akulyanov@mail.ru>)
+	id 1htIyw-0007NO-Re
+	for support@anza77.ru; Fri, 02 Aug 2019 00:51:31 +0300
+Received: by e.mail.ru with HTTP;
+	Fri, 02 Aug 2019 00:51:30 +0300
+From: =?UTF-8?B?QWxleGFuZGVyIEt1bHlhbm92?= <akulyanov@mail.ru>
+To: support@anza77.ru
+Subject: =?UTF-8?B?0L/RgNC+0LLQtdGA0LrQsA==?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+Date: Fri, 02 Aug 2019 00:51:30 +0300
+Reply-To: =?UTF-8?B?QWxleGFuZGVyIEt1bHlhbm92?= <akulyanov@mail.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1564696290.854279672@f396.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--lnGgir9E4zcHc9qa1UwsSN8LOwQeR5S61564696290"
+Authentication-Results: f396.i.mail.ru; auth=pass smtp.auth=akulyanov@mail.ru smtp.mailfrom=akulyanov@mail.ru
+X-77F55803: 6672BE8CEBEC45887F9F52485CB584D7ADE63D71A4B1B0B899AE4C739A9BFC40C6DC8BAE6AE413E335A59B6624C00597ADAB024B4846C063
+X-7FA49CB5: 70AAF3C13DB7016878DA827A17800CE7BE9BDFD61AE99F31D82A6BABE6F325ACA01ED31736435A1FBFD28B28ED4578739E625A9149C048EE1E561CDFBCA1751FAC83A81C8FD4AD23E2E44EFD321A7F275571747095F342E85644E22E05AA81AEE6DE07D961CB05C233AC447995A7AD186CEA61CADDE926D952120BFB3F63BC1840A5AABA2AD371197C6FB206A91F05B24D2A1F4078D1EF93E3EB3324B0138E31BE5E7F44427E1A0ED2E47CDBA5A96583C09775C1D3CA48CFED8438A78DFE0A9E117882F4460429724CE54428C33FAD30A8DF7F3B2552694A4A5EC4583E1CDF108941B15DA834481F8AA50765F7900637F924B32C592EA89F389733CBF5DBD5E9B5C8C57E37DE458B4C7702A67D5C33162DBA43225CD8A89FB26E97DCB74E625266C0162A608750E424C67D5DB94550AF43847C11F186F3C5E7DDDDC251EA7DABCC89B49CDF41148F6B16E133A9586FB82623479134186CDE6BA297DBC24807EABDAD6C7F3747799A
+X-Mailru-MI: 800
+X-Mailru-Sender: A8EA9427195EDDA748B7E88B6DF6043EC279DA8A00D858A9C9D968AD62F95F9AD458EE1FFD593400AAC3614FF536F46339518AFF2B888FCE0B9B44829CF77EF955A41D518D8BA3512AA3CDD27765A5664C1AA1A80B7240C10F2DC73CC0BFB1A30DA7A0AF5A3A8387
+X-Mras: OK
+X-Spam: undefined
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,HTML_MESSAGE,SPF_HELO_PASS,
+	SPF_PASS,UNPARSEABLE_RELAY autolearn=disabled version=3.3.1
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	relay7.hosting.reg.ru
+
+
+----ALT--lnGgir9E4zcHc9qa1UwsSN8LOwQeR5S61564696290
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CgoK0KEg0YPQstCw0LbQtdC90LjQtdC8LArQkNC70LXQutGB0LDQvdC00YAg0JrRg9C70YzRj9C9
+0L7Qsi4=
+
+----ALT--lnGgir9E4zcHc9qa1UwsSN8LOwQeR5S61564696290
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPjxicj48YnI+PGJyPtChINGD0LLQsNC20LXQvdC40LXQvCw8YnI+0JDQu9C1
+0LrRgdCw0L3QtNGAINCa0YPQu9GM0Y/QvdC+0LIuPC9CT0RZPjwvSFRNTD4K
+
+----ALT--lnGgir9E4zcHc9qa1UwsSN8LOwQeR5S61564696290--
