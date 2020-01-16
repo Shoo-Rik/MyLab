@@ -15,7 +15,7 @@ public final class DateTimeHelper implements IDateTimeHelper {
     public DateTimeHelper(String timeZone) {
 
         if (timeZone == null) {
-            throw new NullPointerException("timeZone");
+            throw new IllegalArgumentException("timeZone");
         }
         _timeZone = TimeZone.getTimeZone(timeZone);
     }

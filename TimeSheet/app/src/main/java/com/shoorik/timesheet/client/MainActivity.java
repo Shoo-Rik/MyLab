@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
             public void uncaughtException(Thread paramThread, Throwable paramThrowable) { int i = 0; }
         });
 
+        setContentView(R.layout.activity_view_pager);
+/*
         setContentView(R.layout.activity_main);
 
         // [TODO] DI
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getInteger(R.integer.workDayDuration_minutes));
 
         UpdateAllControls();
-    }
+*/    }
 
     private void UpdateAllControls() {
 

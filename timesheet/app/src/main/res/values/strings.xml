@@ -23,4 +23,8 @@
     <string name="plannedStartTime">10:00</string>
     <integer name="workDayDuration_hours">8</integer>
     <integer name="workDayDuration_minutes">45</integer>
+    <string name="title_activity_calendar_tab">CalendarTabActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
