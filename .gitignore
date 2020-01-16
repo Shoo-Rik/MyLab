@@ -1,3 +1,7 @@
 Test/
-TimeSheet/.idea/caches/build_file_checksums.ser
-TimeSheet/.idea/caches/gradle_models.ser
+TimeSheet/.idea/caches/
+TestWebApp/
+testwebapp2/
+Models/TrafficModel/bin/
+Models/TrafficModel/obj/
+Models/TrafficModel/.vs/
